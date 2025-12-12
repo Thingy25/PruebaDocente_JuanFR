@@ -51,14 +51,14 @@ void UUInteractionComponent::TryGetInteractable() {
 		CollisionParams.AddIgnoredActor(GetOwner());
 		bool bHit = GetWorld()->SweepSingleByChannel(OutHit, TraceStart, TraceEnd, FQuat::Identity, ECC_Pawn, FCollisionShape::MakeSphere(ObjectDetectionRadius), CollisionParams
 	);
-		DrawDebugSphere(GetWorld(), TraceStart, ObjectDetectionRadius, 12, FColor::Red, false, 5);
+		//DrawDebugSphere(GetWorld(), TraceStart, ObjectDetectionRadius, 12, FColor::Red, false, 5);
 
 		if (bHit && OutHit.GetActor()->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 		{
 
 			ActorToInteract = OutHit.GetActor();
 
-			DrawDebugSphere(GetWorld(), TraceStart, ObjectDetectionRadius, 12, FColor::Green, false, 5);
+			//DrawDebugSphere(GetWorld(), TraceStart, ObjectDetectionRadius, 12, FColor::Green, false, 5);
 
 			FString Prompt = IInteractable::Execute_GetInteractionPromptText(OutHit.GetActor());
 
@@ -74,7 +74,7 @@ void UUInteractionComponent::TryGetInteractable() {
 
 			//UKismetSystemLibrary::PrintString(
 			//	GetWorld(), // Or any valid UObject* that can provide a world context
-			//	TEXT("CUMCUMCUM"),
+			//	TEXT("WORKING"),
 			//	true, // bPrintToScreen
 			//	true, // bPrintToLog
 			//	FLinearColor::Blue,
@@ -95,14 +95,6 @@ void UUInteractionComponent::RequestInteractionStart() {
 	{
 		IInteractable::Execute_OnInteract(ActorToInteract, UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	}
-	UKismetSystemLibrary::PrintString(
-		GetWorld(), // Or any valid UObject* that can provide a world context
-		TEXT("START"),
-		true, // bPrintToScreen
-		true, // bPrintToLog
-		FLinearColor::Green,
-		5.0f, // Duration in seconds
-		NAME_None); // Key (optional, for updating same message)
 }
 
 void UUInteractionComponent::RequestInteractionStop() {
