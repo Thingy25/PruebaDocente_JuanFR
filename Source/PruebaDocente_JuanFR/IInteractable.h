@@ -31,23 +31,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	FString GetInteractionPromptText() const;
 
-	/*UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void OnInteract(APawn* InteractorPawn);
-	virtual void OnInteract_Implementation(APawn* InteractorPawn);
-
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void OnInteractionStart(APawn* InteractorPawn);
-	virtual void OnInteractionStart_Implementation(APawn* InteractorPawn);
-
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void OnInteractionStop(APawn* InteractorPawn);
-	virtual void OnInteractionStop_Implementation(APawn* InteractorPawn);
-
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	FString GetInteractionPromptText() const;
-	virtual FString GetInteractionPromptText_Implementation() const;
-
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void EnablePromptWidget(const FString& Prompt);
-	virtual void EnablePromptWidget_Implementation(const FString& Prompt);*/
+	bool GetInteractableState() const;
 };
