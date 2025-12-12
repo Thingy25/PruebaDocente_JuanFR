@@ -23,20 +23,19 @@ protected:
 
 	FTimerHandle DetectionTimerHandle;
 
-	UPROPERTY(EditAnywhere, Category = "Interaction")
-	float TimerRate;
+	AActor* ActorToInteract = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = "Interaction")
-	float ObjectDetectionRadius;
+	float TimerRate = 0.1f;
 
 	UPROPERTY(EditAnywhere, Category = "Interaction")
-	float DetectionSphereOffset;
+	float ObjectDetectionRadius = 0;
+
+	UPROPERTY(EditAnywhere, Category = "Interaction")
+	float DetectionSphereOffset = 0;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Interaction")
-	UWidgetComponent* TextPromptWidget;
-	//Consider TObjectPtr<UWidgetComponent> TextPromptWidget;
-
-	AActor* ActorToInteract;
+	TObjectPtr<UWidgetComponent> TextPromptWidget;
 
 	UFUNCTION()
 	void TryGetInteractable();

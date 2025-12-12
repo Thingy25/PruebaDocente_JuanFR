@@ -16,6 +16,8 @@ UUInteractionComponent::UUInteractionComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
+
+
 	// ...
 }
 
@@ -31,15 +33,6 @@ void UUInteractionComponent::BeginPlay()
 	// ...
 	
 }
-
-
-// Called every frame
-//void UUInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-//{
-//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//
-//	// ...
-//}
 
 void UUInteractionComponent::TryGetInteractable() {
 	
@@ -61,16 +54,15 @@ void UUInteractionComponent::TryGetInteractable() {
 			//DrawDebugSphere(GetWorld(), TraceStart, ObjectDetectionRadius, 12, FColor::Green, false, 5);
 
 			FString Prompt = IInteractable::Execute_GetInteractionPromptText(OutHit.GetActor());
+			bool bCanBeInteracted = IInteractable::Execute_GetInteractableState(OutHit.GetActor());
 
 			UUserWidget* PromptWidget = TextPromptWidget->GetUserWidgetObject();
-			if (PromptWidget->GetClass()->ImplementsInterface(UIWidgetCommunication::StaticClass()))
+			if (PromptWidget->GetClass()->ImplementsInterface(UIWidgetCommunication::StaticClass()) && bCanBeInteracted)
 			{
 				IIWidgetCommunication::Execute_EnablePromptWidget(PromptWidget, Prompt);
+				TextPromptWidget->SetVisibility(true);
 			}
 
-			//IInteractable::Execute_EnablePromptWidget(OutHit.GetActor(), Prompt, true);
-
-			TextPromptWidget->SetVisibility(true);
 
 			//UKismetSystemLibrary::PrintString(
 			//	GetWorld(), // Or any valid UObject* that can provide a world context
@@ -98,13 +90,10 @@ void UUInteractionComponent::RequestInteractionStart() {
 }
 
 void UUInteractionComponent::RequestInteractionStop() {
-	UKismetSystemLibrary::PrintString(
-		GetWorld(), // Or any valid UObject* that can provide a world context
-		TEXT("STOP"),
-		true, // bPrintToScreen
-		true, // bPrintToLog
-		FLinearColor::Green,
-		5.0f, // Duration in seconds
-		NAME_None); // Key (optional, for updating same message)
+
+	if (ActorToInteract)
+	{
+		IInteractable::Execute_OnInteractionStop(ActorToInteract, UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	}
 }
 
