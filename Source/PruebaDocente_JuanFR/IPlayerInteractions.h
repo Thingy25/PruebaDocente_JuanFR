@@ -25,4 +25,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void PlayInteractAnimation();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void StopLoopingAnimation();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void StartLoopingAnimation();
 };
